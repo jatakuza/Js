@@ -1,68 +1,78 @@
-const users = [
-  { id: 1, name: "Anna", age: 22, city: "Moscow", isActive: true },
-  { id: 2, name: "Oleg", age: 17, city: "Kazan", isActive: false },
-  { id: 3, name: "Ivan", age: 30, city: "Moscow", isActive: true },
-  { id: 4, name: "Maria", age: 25, city: "Sochi", isActive: false }
-];
+const expenceTracker = {
+    expences: [],
+    id: 1,
 
-function getActiveUsers(users) {
-    return users.filter(user => user.isActive)
-}
-
-function getUserNames(users) {
-    return users.map(user => user.name)
-}
-
-function findById(users, id) {
-    return users.find(user => user.id === id)
-}
-
-function getUserStatistic(users) {
-    return users.reduce(
-        (stats, user) => {
-            if (user.isActive) {
-                stats.active++
-            }else {
-                stats.unactive++
-            }
-            return stats;
-        },
-        {
-            total: users.length,
-            active: 0,
-            inactive: 0
+    addExpence(title, amount, category) {
+        if(!title || amount <= 0 || !category) {
+            console.log("Incorrect input");
+            return;
         }
-    )
-} 
 
-function getAverageAge(users) {
-    totalAge = users.reduce((sum, user) => sum += user.age, 0);
+        this.expences.push({
+            id: this.id++,
+            title,
+            amount,
+            category
+        });
+    },
 
-    return totalAge / users.length
+    printAllExpences() {
+        this.expences.forEach(e => {
+            console.log(`${e.id} | ${e.title} | ${e.amount} | ${e.category}`)
+        });
+    },
+
+    getTotalAmount() {
+        let total = this.expences.reduce((sum, e) => sum += e.amount, 0);
+        console.log(total);
+    },
+
+    getExpencesByCategory(category) {
+        let filtered = this.expences.filter(e => e.category === category);
+        let total = filtered.reduce((sum, e) => sum += e.amount, 0);
+
+        console.log(`Category ${category}`);
+        filtered.forEach(e => {
+            console.log(`${e.title} | ${e.amount} | ${e.category}`)
+        });
+
+        console.log(`Spent: ${total}`);
+    },
+
+    findExpenceByTitle(title) {
+        let expence = this.expences.find(e => e.title.includes(title));
+
+        if(!expence) {
+            console.log("Not found");
+            return null;
+        }else {
+            console.log(expence)
+            return expence
+        }
+    },
+
+    deleteById(id) {
+        this.expences = this.expences.filter(e => e.id !== id);
+    },
+
+    printCategoryStats() {
+        let stats = {};
+
+        this.expences.forEach(e => {
+            stats[e.category] = (stats[e.category] || 0) + e.amount;
+        });
+
+        for (let category in stats) {
+            console.log(`${category}: ${stats[category]}`)
+        }
+    }
 }
 
-function groupByCity(users) {
-    return users.reduce(
-        (groups, user) => {
-            if(!groups[user.city]) {
-                groups[user.city] = []
-            }
+expenceTracker.addExpence("Products", 1000, "SomeProducts");
+expenceTracker.addExpence("Taxi", 500, "someTaxi");
+expenceTracker.addExpence("Coffe", 200, "SomeProducts");
 
-            groups[user.city].push(user);
-            return groups;
-        }, {}
-    )
-}
-
-console.log(getActiveUsers(users));
-
-console.log(getUserNames(users));
-
-console.log(findById(users, 3));
-
-console.log(getUserStatistic(users));
-
-console.log(getAverageAge(users));
-
-console.log(groupByCity(users));
-
+expenceTracker.printAllExpences();
+expenceTracker.getTotalAmount();
+expenceTracker.getExpencesByCategory("SomeProducts");
+expenceTracker.printCategoryStats();
