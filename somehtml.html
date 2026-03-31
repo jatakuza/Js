@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body{
+            font-family: Arial, sans-serif;
+            padding: 16px;
+
+        }
+        #input{padding: 6px 8px; width: 260px}
+        button{padding: 6px 10px; cursor: pointer}
+        .row{
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin: 10px 0
+        }
+
+        .active {
+            background: yellow
+        }
+        .task{padding: 6px 8px; border: 1px solid #ddd; margin: 6px 0; border: ;}
+        .task.done{
+            text-decoration: line-through; opacity: 0.7;
+        }
+        .task.text{
+            flex: 1;
+            cursor: pointer
+        }
+        .task.del{
+            margin-left: auto;
+
+        }
+        .done {
+            text-decoration: line-through; opacity: 0.7;
+        }
+        .meta {
+            margin-top: 10px; font-size: 14px;
+        }
+        .hint{
+            font-size: 13px;
+            opacity: 0.75;
+            margin-top: 6px;
+        }
+        .log-pannel{
+            margin-top: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        #log{height: 100px; overflow: auto; background: #fafafa; border: 1px solid #eee;
+        border-radius: 8px; padding: 8px; font-family: "TimesNewRoman", times, serif;
+        font-size: 12px; white-space: pre-wrap}
+        .kdb {font-family: monospace; background: #eee; padding: 2px 6px; border-radius: 6px;}
+
+        .outer, .middle, .inner {
+        border: 2px solid #444;
+        padding: 12px;
+        border-radius: 10px;
+        margin-top: 12px;
+        }
+
+        .middle {border-color: #777;}
+        .inner {border-color: #aaa;}
+
+
+    </style>
+    <script src="somejs.js"></script>
+</head>
+<body>
+    <h1 id="title">Список</h1>
+    <div class="row">
+        <input id="input" placeholder="add task">
+        <button id="add">Add</button>
+        <button id="clear">clear</button>
+    </div>
+
+    <div class="meta">
+        <div id="counter">Total: 0 - complited: 0</div>
+        <div class="hint"></div>    
+
+    </div>
+        <input id="input">
+        <button id="add">Add</button>
+        <ul id="list"></ul>
+
+        <div class="outer" id="outer">
+            outer
+            <div class="middle" id="middle">
+                middle
+                <div class="inner" id="inner">
+                    inner
+                    <button id="innerBtn">Button in inner</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="log_pannel">
+            <div class="row">
+                <strong>Event log</strong>
+                <button id="logClear">Clear</button>
+                <label class="row" style="margin: 0">
+                    <input type="checkbox" id="showDetails" checked>
+                    Show details
+                </label>
+
+            </div>
+
+            <div class="hint">
+                Hint: eventPhase = 1 (capture), 2 (target), 3 (bubble)
+            </div>
+
+            <div id="log"></div>
+
+            <p class="hint">
+                Demo preventDefault: <a id="demoLink" href="https://example.com" target="_blank">
+                Link
+                </a>
+                
+            </p>
+        </div>
+
+    <sctipt src = "somejs.js">
+
+    </sctipt>
+</body>
+</html>
